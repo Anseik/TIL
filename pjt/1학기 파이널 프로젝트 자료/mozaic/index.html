@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+  {% for movie in movies %}
+    <figure class="snip1436">
+    <img src="http://image.tmdb.org/t/p/w185/{{ movie.poster_path }}" alt="" />
+      <figcaption>
+          <h2>{{ movie.title }}</h2>
+          <p>평점 : {{ movie.vote_average }}</p>
+          <p>{{ movie.overview }}</p>
+          <div class="icons"><a href="#"><i class="ion-chatbubbles"></i></a>
+          <a href="#"> <i class="ion-person-add"></i></a>
+          <a href="#"> <i class="ion-heart"></i></a>
+          </div>
+      </figcaption>
+    </figure>
+  {% endfor %}
+{% endblock %}

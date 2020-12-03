@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% block content %}
+  <div class="text-center">
+    <h1>상세보기</h1>
+    <h2>{{ movie.title }}</h2>
+    <img src="http://image.tmdb.org/t/p/w185/{{ movie.poster_path }}" alt="">
+    <h4>줄거리</h4>
+    <h5>{{ movie.overview }}</h5>
+    <h6>개봉 날짜 : {{ movie.release_date }}</h6>
+  </div>
+  <div>
+    <form class="form" action="{% url 'movies:movie_create_comment' movie.pk %}" method="POST">
+      {% csrf_token %}
+      {% bootstrap_form movie_comment_form %}
+      {% buttons %}
+        <button type="submit" class="btn btn-secondary">
+          댓글작성
+        </button>
+      {% endbuttons %}
+    </form>  
+  </div>
+  <!-- 댓글 보여주기 -->
+  <div>
+    {% for movie_comment in movie_comments %}
+      <li>{{movie_comment.user}}: {{ movie_comment.content }}</li>
+      <form class="d-inline" action="{% url 'movies:movie_delete_comment' movie.pk movie_comment.pk %}" method="POST">
+        {% csrf_token %}
+        <button>댓글삭제</button>
+      </form>      
+    {% endfor %}
+  </div>
+{% endblock  %}
